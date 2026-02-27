@@ -1,0 +1,24 @@
+#!@TERMUX_PREFIX@/bin/bash
+set -e -u
+
+SCRIPTNAME=termux-accessibility
+show_usage() {
+    echo "Usage: $SCRIPTNAME options"
+    echo 'Options:'
+    echo 'dump: returns UI XML as `adb` `uiautomator dump`'
+    echo 'click x y: clicks at the given location'
+    exit 0
+}
+
+USAGE_REGEX='^dump|click [0-9]+ [0-9]+$'
+if ! [[ $@ =~ $USAGE_REGEX ]]; then
+    show_usage
+fi
+
+if [ "$1" == dump ]; then
+	ARGS="--ez dump true"
+else
+	ARGS="--ez click true --ei x $2 --ei y $3"
+fi
+
+@TERMUX_PREFIX@/libexec/termux-api Accessibility $ARGS
