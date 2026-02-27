@@ -7,18 +7,21 @@ show_usage() {
     echo 'Options:'
     echo 'dump: returns UI XML as `adb` `uiautomator dump`'
     echo 'click x y: clicks at the given location'
+    echo 'type toType: types the given string'
     exit 0
 }
 
-USAGE_REGEX='^dump|click [0-9]+ [0-9]+$'
+USAGE_REGEX='^dump|click [0-9]+ [0-9]+$|type .+'
 if ! [[ $@ =~ $USAGE_REGEX ]]; then
     show_usage
 fi
 
 if [ "$1" == dump ]; then
 	ARGS="--ez dump true"
-else
+elif [ "$1" == click ]; then
 	ARGS="--ez click true --ei x $2 --ei y $3"
+elif [ "$1" == type ]; then
+	ARGS="--es type $2"
 fi
 
 @TERMUX_PREFIX@/libexec/termux-api Accessibility $ARGS
