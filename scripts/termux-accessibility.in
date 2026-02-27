@@ -8,20 +8,23 @@ show_usage() {
     echo 'dump: returns UI XML as `adb` `uiautomator dump`'
     echo 'click x y: clicks at the given location'
     echo 'type toType: types the given string'
+    echo 'global-action globalAction: performs the given global action'
     exit 0
 }
 
-USAGE_REGEX='^dump|click [0-9]+ [0-9]+$|type .+'
+USAGE_REGEX='^dump|click [0-9]+ [0-9]+$|type .+|global-action .+'
 if ! [[ $@ =~ $USAGE_REGEX ]]; then
     show_usage
 fi
 
 if [ "$1" == dump ]; then
-	ARGS="--ez dump true"
+    ARGS="--ez dump true"
 elif [ "$1" == click ]; then
-	ARGS="--ez click true --ei x $2 --ei y $3"
+    ARGS="--ez click true --ei x $2 --ei y $3"
 elif [ "$1" == type ]; then
-	ARGS="--es type $2"
+    ARGS="--es type $2"
+elif [ "$1" == global-action ]; then
+    ARGS="--es global-action $2"
 fi
 
 @TERMUX_PREFIX@/libexec/termux-api Accessibility $ARGS
