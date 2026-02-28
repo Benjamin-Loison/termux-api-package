@@ -18,13 +18,13 @@ if ! [[ $@ =~ $USAGE_REGEX ]]; then
 fi
 
 if [ "$1" == dump ]; then
-    ARGS="--esn dump"
+    ARGS=(--esn dump)
 elif [ "$1" == click ]; then
-    ARGS="--esn click --ei x $2 --ei y $3"
+    ARGS=(--esn click --ei x $2 --ei y $3)
 elif [ "$1" == type ]; then
-    ARGS="--es type $2"
+    ARGS=(--es type "$2")
 elif [ "$1" == global-action ]; then
-    ARGS="--es global-action $2"
+    ARGS=(--es global-action $2)
 fi
 
-@TERMUX_PREFIX@/libexec/termux-api Accessibility $ARGS
+@TERMUX_PREFIX@/libexec/termux-api Accessibility "${ARGS[@]}"
