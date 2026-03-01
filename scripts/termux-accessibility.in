@@ -6,13 +6,13 @@ show_usage() {
     echo "Usage: $SCRIPTNAME options"
     echo 'Options:'
     echo 'dump: returns UI XML as `adb` `uiautomator dump`'
-    echo 'click x y: clicks at the given location'
+    echo 'click x y (duration): clicks at the given location for the given duration in milliseconds (default is 1)'
     echo 'type toType: types the given string'
     echo 'global-action globalAction: performs the given global action'
     exit 0
 }
 
-USAGE_REGEX='^dump|click [0-9]+ [0-9]+$|type .+|global-action .+'
+USAGE_REGEX='^dump|click [0-9]+ [0-9]+( [0-9]+)?$|type .+|global-action .+'
 if ! [[ $@ =~ $USAGE_REGEX ]]; then
     show_usage
 fi
@@ -20,7 +20,7 @@ fi
 if [ "$1" == dump ]; then
     ARGS=(--esn dump)
 elif [ "$1" == click ]; then
-    ARGS=(--esn click --ei x $2 --ei y $3)
+    ARGS=(--esn click --ei x $2 --ei y $3 --ei duration ${4-1})
 elif [ "$1" == type ]; then
     ARGS=(--es type "$2")
 elif [ "$1" == global-action ]; then
