@@ -9,10 +9,11 @@ show_usage() {
     echo 'click x y (duration): clicks at the given location for the given duration in milliseconds (default is 1)'
     echo 'type toType: types the given string'
     echo 'global-action globalAction: performs the given global action'
+    echo 'screenshot: returns the taken screenshot as PNG'
     exit 0
 }
 
-USAGE_REGEX='^dump|click [0-9]+ [0-9]+( [0-9]+)?$|type .+|global-action .+'
+USAGE_REGEX='^dump|click [0-9]+ [0-9]+( [0-9]+)?$|type .+|global-action .+|screenshot'
 if ! [[ $@ =~ $USAGE_REGEX ]]; then
     show_usage
 fi
@@ -25,6 +26,8 @@ elif [ "$1" == type ]; then
     ARGS=(--es type "$2")
 elif [ "$1" == global-action ]; then
     ARGS=(--es global-action $2)
+elif [ "$1" == screenshot ]; then
+    ARGS=(--esn screenshot)
 fi
 
 @TERMUX_PREFIX@/libexec/termux-api Accessibility "${ARGS[@]}"
