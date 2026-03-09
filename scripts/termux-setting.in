@@ -1,0 +1,17 @@
+#!@TERMUX_PREFIX@/bin/bash
+set -e -u
+
+SCRIPTNAME=termux-setting
+show_usage() {
+    echo "Usage: $SCRIPTNAME get namespace key"
+    echo 'namespace: global, system or secure'
+    echo 'key: see https://developer.android.com/reference/android/provider/Settings.NAMESPACE#constants'
+    exit 0
+}
+
+USAGE_REGEX='^get (global|secure|system) [\._0-9a-z]+$'
+if ! [[ $@ =~ $USAGE_REGEX ]]; then
+    show_usage
+fi
+
+@TERMUX_PREFIX@/libexec/termux-api Setting --es namespace $2 --es key $3
