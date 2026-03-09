@@ -13,7 +13,7 @@ show_usage() {
     exit 0
 }
 
-USAGE_REGEX='^dump|click [0-9]+ [0-9]+( [0-9]+)?$|type .+|global-action .+|screenshot'
+USAGE_REGEX='^(dump|click [0-9]+ [0-9]+( [0-9]+)?|type .+|global-action .+|screenshot)$'
 if ! [[ $@ =~ $USAGE_REGEX ]]; then
     show_usage
 fi
