@@ -4,17 +4,21 @@ set -e -u
 SCRIPTNAME=termux-notification-list
 show_usage () {
     echo "Usage: $SCRIPTNAME"
-    echo "Show the list of currently shown notifications."
+    echo "Default: Show the list of currently shown notifications."
     echo "m: Show the list of current medias."
+	echo "a: Start listening to notifications."
+	echo "o: Stop listening to notifications."
     exit 0
 }
 
-media=false
-while getopts :hm option
+argument=false
+while getopts :hmao option
 do
     case "$option" in
         h) show_usage;;
-        m) media=true;;
+        m) argument=media;;
+		a) argument=start-listen;;
+		o) argument=stop-listen;;
         ?) echo "$SCRIPTNAME: illegal option -$OPTARG"; exit 1;
     esac
 done
@@ -22,9 +26,10 @@ shift $((OPTIND-1))
 
 if [ $# != 0 ]; then echo "$SCRIPTNAME: too many arguments"; exit 1; fi
 
-if [ $media = false ]
+TERMUX_API=@TERMUX_PREFIX@/libexec/termux-api
+if [ $argument = false ]
 then
-	@TERMUX_PREFIX@/libexec/termux-api NotificationList
+	$TERMUX_API NotificationList
 else
-	@TERMUX_PREFIX@/libexec/termux-api NotificationList --esn media
+	$TERMUX_API NotificationList --esn $argument
 fi
