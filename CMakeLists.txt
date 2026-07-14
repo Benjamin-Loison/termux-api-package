@@ -13,6 +13,7 @@ target_link_libraries(termux-api-broadcast termux-api-static)
 
 # TODO: get list through regex or similar
 set(script_files
+  scripts/termux-accessibility
   scripts/termux-api-start
   scripts/termux-api-stop
   scripts/termux-audio-info
@@ -32,6 +33,7 @@ set(script_files
   scripts/termux-job-scheduler
   scripts/termux-keystore
   scripts/termux-location
+  scripts/termux-media-key
   scripts/termux-media-player
   scripts/termux-media-scan
   scripts/termux-microphone-record
@@ -49,6 +51,7 @@ set(script_files
   scripts/termux-saf-rm
   scripts/termux-saf-stat
   scripts/termux-saf-write
+  scripts/termux-setting
   scripts/termux-sensor
   scripts/termux-share
   scripts/termux-sms-inbox
