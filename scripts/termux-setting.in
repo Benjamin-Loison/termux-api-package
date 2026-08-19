@@ -4,8 +4,8 @@ set -e -u
 SCRIPTNAME=termux-setting
 show_usage() {
     echo "Usage: $SCRIPTNAME action namespace key [value]"
-    echo 'action: get or put'
-    echo 'namespace: global, system or secure'
+    echo 'action: get or put (put only supports system namespace)'
+    echo 'namespace: global, secure or system'
     echo 'key: see https://developer.android.com/reference/android/provider/Settings.NAMESPACE#constants'
     echo 'value: value put for the given key'
     exit 0
