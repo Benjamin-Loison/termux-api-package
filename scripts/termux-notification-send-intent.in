@@ -1,0 +1,16 @@
+#!@TERMUX_PREFIX@/bin/sh
+set -e -u
+
+SCRIPTNAME=termux-notification-send-intent
+show_usage () {
+    echo "Usage: $SCRIPTNAME PACKAGE_NAME NOTIFICATION_ID NOTIFICATION_ACTION_NAME"
+    exit 0
+}
+
+TERMUX_API=@TERMUX_PREFIX@/libexec/termux-api
+if [ $# -gt 2 ]
+then
+    $TERMUX_API NotificationSendIntent --es package-name $1 --ei notification-id $2 --es action-name "$3"
+else
+    show_usage
+fi

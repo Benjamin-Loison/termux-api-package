@@ -42,6 +42,7 @@ set(script_files
   scripts/termux-notification-channel
   scripts/termux-notification-list
   scripts/termux-notification-remove
+  scripts/termux-notification-send-intent
   scripts/termux-saf-create
   scripts/termux-saf-dirs
   scripts/termux-saf-ls
