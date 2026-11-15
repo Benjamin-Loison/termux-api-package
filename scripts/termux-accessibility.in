@@ -11,6 +11,7 @@ show_usage() {
     echo 'global-action globalAction: performs the given global action'
     echo 'screenshot (display id): returns the taken screenshot as PNG'
     echo 'list-displays: lists displays'
+    echo 'get-string: get app locale string'
     echo 'Default display id is 0'
     exit 0
 }
@@ -36,6 +37,8 @@ elif [ "$1" == screenshot ]; then
     ARGS=(--esn screenshot --ei display-id ${2-0})
 elif [ "$1" == list-displays ]; then
 	ARGS=(--esn list-displays)
+elif [ "$1" == get-string ]; then
+    ARGS=(--esn get-string)
 fi
 
 @TERMUX_PREFIX@/libexec/termux-api Accessibility "${ARGS[@]}"
